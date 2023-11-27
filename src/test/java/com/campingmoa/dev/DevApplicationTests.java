@@ -10,20 +10,22 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
-@Rollback(value = false)
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import static java.time.temporal.ChronoUnit.DAYS;
+
+
 class DevApplicationTests {
 
-	@Autowired
-	EntityManager em;
 
 
 	@Test
 	void contextLoads() {
-		Member member = new Member();
-		em.persist(member);
+		LocalDate startDate = LocalDate.of(2023,11,26);
+		LocalDate endDate = LocalDate.of(2023,11,27);
+		long days = DAYS.between(startDate,endDate);
+
 
 
 
