@@ -21,14 +21,14 @@ public class CampingService {
     private final CampingRepository campingRepository;
 
     @Transactional
-    public Long makeCamping(Member member, LocalDate startDate, LocalDate endDate){
+    public Long makeCamping(Member member, String name,LocalDate startDate, LocalDate endDate){
         List<OpenDates> opendateList = new ArrayList<>();
         LocalDate target = startDate;
         while(!(target.isEqual(endDate))){
             opendateList.add(new OpenDates(target));
             target = target.plusDays(1);
         }
-        Camping camping = Camping.createCamping(member,opendateList);
+        Camping camping = Camping.createCamping(member,name,opendateList);
 
         campingRepository.save(camping);
         return camping.getId();

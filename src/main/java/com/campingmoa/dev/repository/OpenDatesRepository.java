@@ -27,7 +27,7 @@ public class OpenDatesRepository {
                 .getResultList();
     }
 
-    public List<OpenDates> findByCamping(Long campingId){
+    public List<OpenDates> findByCamping(Camping campingId){
         return em.createQuery("select o from OpenDates o where o.camping =:camping", OpenDates.class)
                 .setParameter("camping",campingId)
                 .getResultList();

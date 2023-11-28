@@ -52,7 +52,7 @@ public class Reservation extends BaseTime{
 
     //==비즈니스 로직==//
     public void cancel(){
-        if(this.status == ReservationStatus.COMPLETE){
+        if(!this.status.equals(ReservationStatus.COMPLETE)){
             throw new IllegalStateException("이미 종료된 예약은 취소가 불가능합니다.");
         }
         this.setStatus(ReservationStatus.CANCEL);

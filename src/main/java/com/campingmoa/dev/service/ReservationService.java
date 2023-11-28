@@ -34,16 +34,19 @@ public class ReservationService {
         Member member = memberRepository.findOne(memberId);
         Camping camping = campingRepository.findOne(campingId);
 
+        //예약날짜 존재여부 확인
+        camping.isValid(startDate, endDate);
         //예약 가능한지 확인
         camping.isAvailable(startDate, endDate);
 
         // 날짜 예약 처리
-        List<OpenDates> openDatesList = openDatesRepository.findByCamping(campingId);
+        List<OpenDates> openDatesList = openDatesRepository.findByCamping(camping);
         for (OpenDates openDate : openDatesList) {
             LocalDate target = openDate.getOpenDay();
-            if(target.isAfter(startDate)||target.isBefore(endDate)
-                    ||target.isEqual(startDate)||target.isEqual(endDate)){
-                openDate.makeSoldOut();
+            if(target.isEqual(startDate)||target.isAfter(startDate)&&target.isBefore(endDate)
+                    ||target.isEqual(endDate)){
+                System.out.println(target);
+                openDate.makeSoldOut(target);
             }
         }
 
@@ -56,13 +59,24 @@ public class ReservationService {
 
         //예약취소
         @Transactional
-        public void cancel(Long campingId,LocalDate startDate, LocalDate endDate){
+        public void cancel(Long resvId){
+            //예약 상태확인
+            Reservation reservation = reservationRepository.findOne(resvId);
+            reservation.cancel();
+            //캠핑상품 예약일 확인
+            List<OpenDates> OpenDatesList = openDatesRepository.findByCamping(reservation.getCamping());
 
+            LocalDate startDate = reservation.getStartDate();
+            LocalDate endDate = reservation.getEndDate();
+            // 캠핑 날짜 상태 복구
             LocalDate target = startDate;
-            while(!(target.isEqual(endDate))){
-                target = target.plusDays(1);
+            for(OpenDates dateData : OpenDatesList){
+                if(dateData.getOpenDay().equals(target)){
+                    dateData.makeAvailable();
+                }
+                    target = target.plusDays(1);
             }
-            아직 모르겠다^^
+
         }
 
 

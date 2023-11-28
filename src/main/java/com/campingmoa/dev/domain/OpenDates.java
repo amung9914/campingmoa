@@ -39,8 +39,11 @@ public class OpenDates {
     /**
      * status 품절로 변경
      */
-    public void makeSoldOut(){
+    public void makeSoldOut(LocalDate date){
         if(this.status != AVAILABLE){
+            throw new NotEnoughStockException("this is unavailable");
+        }
+        if(!this.openDay.equals(date)){
             throw new NotEnoughStockException("this is unavailable");
         }
         this.status = SOLD_OUT;
