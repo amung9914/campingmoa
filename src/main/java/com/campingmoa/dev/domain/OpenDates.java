@@ -1,7 +1,7 @@
 package com.campingmoa.dev.domain;
 
-import com.campingmoa.dev.exception.NotEnoughStockException;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,8 +13,8 @@ import static com.campingmoa.dev.domain.OpenStatus.AVAILABLE;
 import static com.campingmoa.dev.domain.OpenStatus.SOLD_OUT;
 
 @Entity
-@Getter @Setter
-@NoArgsConstructor
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OpenDates {
     @Id @GeneratedValue
     @Column(name = "opendates_id")
@@ -26,8 +26,17 @@ public class OpenDates {
     @Enumerated(EnumType.STRING)
     private OpenStatus status;
 
-    public OpenDates(LocalDate openDay) {
+    public OpenDates(LocalDate openDay, OpenStatus status) {
+
         this.openDay = openDay;
+        this.status = status;
+    }
+
+    /**
+     * 캠핑세팅
+     */
+    public void linkDateToCamping(Camping camping) {
+        this.camping = camping;
     }
 
     /**
@@ -39,12 +48,9 @@ public class OpenDates {
     /**
      * status 품절로 변경
      */
-    public void makeSoldOut(LocalDate date){
+    public void makeSoldOut(){
         if(this.status != AVAILABLE){
-            throw new NotEnoughStockException("this is unavailable");
-        }
-        if(!this.openDay.equals(date)){
-            throw new NotEnoughStockException("this is unavailable");
+            throw new IllegalStateException("this is unavailable");
         }
         this.status = SOLD_OUT;
     }

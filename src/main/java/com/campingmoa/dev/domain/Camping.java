@@ -1,6 +1,5 @@
 package com.campingmoa.dev.domain;
 
-import com.campingmoa.dev.exception.NotEnoughStockException;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Camping extends BaseTime {
 
@@ -35,16 +34,15 @@ public class Camping extends BaseTime {
 
     //연관관계 편의 메서드
     public void addOpenDates(OpenDates openDates){
+        openDates.linkDateToCamping(this);
         openDatesList.add(openDates);
-        openDates.setCamping(this);
-        openDates.setStatus(OpenStatus.AVAILABLE);
     }
 
     //==생성메서드==//
     public static Camping createCamping(Member member,String name, List<OpenDates> openDates){
         Camping camping = new Camping();
-        camping.setSeller(member);
-        camping.setName(name);
+        camping.seller = member;
+        camping.name = name;
         for(OpenDates date : openDates){
             camping.addOpenDates(date);
         }

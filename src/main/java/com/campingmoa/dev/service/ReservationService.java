@@ -46,7 +46,7 @@ public class ReservationService {
             if(target.isEqual(startDate)||target.isAfter(startDate)&&target.isBefore(endDate)
                     ||target.isEqual(endDate)){
                 System.out.println(target);
-                openDate.makeSoldOut(target);
+                openDate.makeSoldOut();
             }
         }
 

@@ -26,11 +26,15 @@ public class CampingServiceTest {
     EntityManager em;
     @Autowired
     CampingService campingService;
+    @Autowired MemberService memberService;
     @Test
     @Rollback(value = false)
     public void 캠핑생성() throws Exception {
         // given
-        Member seller = createSeller();
+
+        Long sellerId = memberService.joinSeller("email2", "1111", "nick2", "010");
+        em.flush();
+        Member seller = em.find(Member.class, sellerId);
         LocalDate startDate = LocalDate.of(2023,11,10);
         LocalDate endDate = LocalDate.of(2023,11,20);
 
@@ -42,14 +46,6 @@ public class CampingServiceTest {
 
         Assertions.assertThat(findCamping.getSeller()).isEqualTo(seller);
 
-    }
-    private Member createSeller(){
-        Member member1 = new Member();
-        member1.setEmail("seller1");
-        member1.setAuthority(Authority.SELLER);
-        member1.setNickname("seller1");
-        em.persist(member1);
-        return member1;
     }
 
 }
