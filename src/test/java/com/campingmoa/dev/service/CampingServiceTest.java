@@ -1,9 +1,6 @@
 package com.campingmoa.dev.service;
 
-import com.campingmoa.dev.domain.Authority;
-import com.campingmoa.dev.domain.Camping;
-import com.campingmoa.dev.domain.Member;
-import com.campingmoa.dev.domain.OpenDates;
+import com.campingmoa.dev.domain.*;
 import jakarta.persistence.EntityManager;
 import org.assertj.core.api.Assertions;
 
@@ -38,7 +35,8 @@ public class CampingServiceTest {
         LocalDate startDate = LocalDate.of(2023,11,10);
         LocalDate endDate = LocalDate.of(2023,11,20);
 
-        Long campingId = campingService.makeCamping(seller, "캠핑이름",startDate, endDate);
+        Address address = new Address("도로명주소","서울","강남구","위도","경도");
+        Long campingId = campingService.makeCamping(seller, "캠핑이름",address, startDate, endDate);
         em.flush();
         Camping findCamping = em.find(Camping.class, campingId);
 

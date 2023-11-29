@@ -1,9 +1,6 @@
 package com.campingmoa.dev.service;
 
-import com.campingmoa.dev.domain.Camping;
-import com.campingmoa.dev.domain.Member;
-import com.campingmoa.dev.domain.OpenDates;
-import com.campingmoa.dev.domain.OpenStatus;
+import com.campingmoa.dev.domain.*;
 import com.campingmoa.dev.repository.CampingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cglib.core.Local;
@@ -22,14 +19,14 @@ public class CampingService {
     private final CampingRepository campingRepository;
 
     @Transactional
-    public Long makeCamping(Member member, String name,LocalDate startDate, LocalDate endDate){
+    public Long makeCamping(Member member, String name, Address address, LocalDate startDate, LocalDate endDate){
         List<OpenDates> opendateList = new ArrayList<>();
         LocalDate target = startDate;
         while(!(target.isEqual(endDate.plusDays(1)))){
             opendateList.add(new OpenDates(target, OpenStatus.AVAILABLE));
             target = target.plusDays(1);
         }
-        Camping camping = Camping.createCamping(member,name,opendateList);
+        Camping camping = Camping.createCamping(member,name,address,opendateList);
 
         campingRepository.save(camping);
         return camping.getId();

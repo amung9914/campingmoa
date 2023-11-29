@@ -85,8 +85,9 @@ class ReservationServiceTest {
 
         LocalDate startDate = LocalDate.of(2023,11,10);
         LocalDate endDate = LocalDate.of(2023,11,20);
+        Address address = new Address("도로명주소","서울","강남구","위도","경도");
 
-        Long campingId = campingService.makeCamping(seller, "캠핑이름",startDate, endDate);
+        Long campingId = campingService.makeCamping(seller, "캠핑이름",address,startDate, endDate);
 
         return campingService.findOne(campingId);
     }

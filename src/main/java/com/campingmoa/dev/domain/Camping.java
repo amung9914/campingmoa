@@ -31,6 +31,8 @@ public class Camping extends BaseTime {
     private List<Reservation> reservations = new ArrayList<>();
     @OneToMany(mappedBy = "camping", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OpenDates> openDatesList = new ArrayList<>();
+    @Embedded
+    private Address address;
 
     //연관관계 편의 메서드
     public void addOpenDates(OpenDates openDates){
@@ -39,10 +41,11 @@ public class Camping extends BaseTime {
     }
 
     //==생성메서드==//
-    public static Camping createCamping(Member member,String name, List<OpenDates> openDates){
+    public static Camping createCamping(Member member,String name,Address address,List<OpenDates> openDates){
         Camping camping = new Camping();
         camping.seller = member;
         camping.name = name;
+        camping.address = address;
         for(OpenDates date : openDates){
             camping.addOpenDates(date);
         }
