@@ -19,16 +19,25 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http)throws Exception{
-        return http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request
-                        .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/status","/assets/**","/view/join","/auth/join").permitAll()
-                        .requestMatchers("/view/admin").hasRole("ADMIN")
-                        .requestMatchers("/view/seller").hasRole("SELLER")
-                        .requestMatchers("/view/user").hasRole("USER")
-                        .requestMatchers("/").permitAll()
-                        .anyRequest().authenticated()
-                ).build();
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth ->
+                {
+                    try {
+                        auth
+                                .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
+                                .requestMatchers("/error","/status", "/assets/**", "/view/join/**", "/auth/join/**").permitAll()
+                                .requestMatchers("/view/admin").hasRole("ADMIN")
+                                .requestMatchers("/view/seller").hasRole("SELLER")
+                                .requestMatchers("/view/user").hasRole("USER")
+                                .requestMatchers("/").permitAll()
+                                .anyRequest().authenticated();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+
+                );
+        return http.build();
     }
 
 }

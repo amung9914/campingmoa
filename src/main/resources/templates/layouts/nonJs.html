@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Space Bootstrap 5 Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/assets/img/favicon.png}">
+    <!-- Place favicon.ico in the root directory -->
+    <!-- ========================= JS here ========================= -->
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap-5.0.0-beta1.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/LineIcons.2.0.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/animate.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/tiny-slider.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/glightbox.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+
+
+    <!-- 각 페이지의 script가 작성될 위치-->
+    <th:block layout:fragment="script"></th:block>
+    <!-- 각 페이지의 css가 작성될 위치 -->
+    <th:block layout:fragment="css"></th:block>
+</head>
+<body>
+
+    <div th:replace="fragments/header::header"></div>
+    <div layout:fragment="content" class="content"></div>
+    <div th:replace="fragments/footer::footer"></div>
+</body>
+</html>

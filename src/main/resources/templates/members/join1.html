@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <style>
+        .login-form{
+            width: min-content;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" th:href="@{/assets/css/bootstrap-5.0.0-beta1.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/LineIcons.2.0.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/animate.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/tiny-slider.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/glightbox.min.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/main.css}" />
+</head>
+<body>
+        <div class="login-form hero-section">
+            <div class="contact-form-wrapper">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                        <div class="section-title text-center mb-50">
+                            <img th:src="@{/assets/img/logo/campingmoa_logo.png}" alt="logo" width="30%">
+                        </div>
+                    </div>
+                </div>
+                <form th:action="@{/auth/join}" th:object="${memberForm}" method="post" id="join-form" class="contact-form">
+                    <div class="row">
+                        <h5 class="mb-25">아이디</h5>
+                        <input type="text" name="email" id="email" placeholder="이메일 주소 입력" required>
+                    </div>
+                    <div class="row">
+                        <h5 class="mb-25">비밀번호</h5>
+                        <input type="password" name="password" id="password" placeholder="8자리 이상 영문,숫자,특수문자 포함" required>
+                    </div>
+                    <div class="row">
+                        <input type="password" name="re-password" id="re-password" placeholder="비밀번호 확인" required>
+                    </div>
+                    <div class="row">
+                        <h5 class="mb-25">닉네임</h5>
+                        <input type="text" name="nickname" id="nickname" placeholder="닉네임 입력" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="button text-center">
+                                <button id="mainBtn" class="theme-btn">회원가입 완료</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+</body>
+        <script th:inline="javascript">
+
+            document.getElementById('join-form').addEventListener('submit',function (event){
+                event.preventDefault();
+
+                const email = $('#email').val();
+                const password = $('#password').val();
+                const nickname = $('#nickname').val();
+
+                $.ajax({
+                    type: "POST",
+                    url : "/auth/join",
+                    data : JSON.stringify({
+                        "email" : email,
+                        "password" : password,
+                        "nickname" : nickname
+                    }),
+                    contentType : 'application/json',
+                    success : function (result){
+                        alert(result);
+                    }
+                });
+
+            })
+
+        </script>
+
+
+</html>
