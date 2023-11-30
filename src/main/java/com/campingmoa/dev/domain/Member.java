@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 
@@ -36,10 +37,10 @@ public class Member extends BaseTime {
      * 일반 회원생성
      */
     public static Member createUser(String email, String password, String nickname,
-                                      String contact) {
+                                    String contact, PasswordEncoder passwordEncoder) {
         Member member = new Member();
         member.email = email;
-        member.password = password;
+        member.password = passwordEncoder.encode(password);
         member.nickname = nickname;
         member.contact = contact;
         member.authority = Authority.USER;

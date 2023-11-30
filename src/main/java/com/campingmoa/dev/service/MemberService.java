@@ -3,6 +3,7 @@ package com.campingmoa.dev.service;
 import com.campingmoa.dev.domain.Member;
 import com.campingmoa.dev.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,13 +15,14 @@ import java.util.List;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
     /**
      * 일반 회원가입
      */
     @Transactional
     public Long join(String email, String password, String nickname,
                      String contact){
-        Member member = Member.createUser(email, password, nickname, contact);
+        Member member = Member.createUser(email, password, nickname, contact,passwordEncoder);
         validateDuplicateEmail(member);
         validateDuplicateNickname(member);
         memberRepository.save(member);
