@@ -25,7 +25,7 @@ public class SpringSecurityConfig {
                     try {
                         auth
                                 .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                                .requestMatchers("/error","/status", "/assets/**", "/view/join/**", "/auth/join/**").permitAll()
+                                .requestMatchers("/error","/status", "/assets/**", "/view/join/**","/view/login/**", "/auth/join/**").permitAll()
                                 .requestMatchers("/view/admin").hasRole("ADMIN")
                                 .requestMatchers("/view/seller").hasRole("SELLER")
                                 .requestMatchers("/view/user").hasRole("USER")

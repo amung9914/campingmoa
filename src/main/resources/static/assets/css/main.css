@@ -54,7 +54,7 @@ button:focus,
 
 a:hover {
   transition: all 0.3s ease-out 0s;
-  color: #3763EB;
+  color: #66d525;
 }
 
 a:focus,
@@ -224,14 +224,18 @@ p {
   box-shadow: 0px 0px 30px rgb(190, 255, 0);
 }
 
-.theme-btn.border-btn {
+.border-btn {
   padding: 14px 40px;
   background: transparent;
-  border: 1.5px solid #3763EB;
+  border: 1.5px solid #F4EEFB;
   color: #6A7C92;
   font-size: 18px;
   box-shadow: none;
 }
+.border-btn:focus{
+  border-color: #8a9352;
+}
+
 
 .scroll-top {
   width: 45px;
@@ -2102,6 +2106,8 @@ p {
   margin-left: 0px;
   border-radius: 10px;
   transition: all 0.3s ease-out 0s;
+  margin-top: 200px;
+  width: min-content;
 }
 
 .comment-form-wrapper:hover,
@@ -2153,7 +2159,7 @@ p {
 .contact-form-wrapper .comment-form textarea:focus,
 .contact-form-wrapper .contact-form input:focus,
 .contact-form-wrapper .contact-form textarea:focus {
-  border-color: #3763EB;
+  border-color: #8a9352;
 }
 
 .comment-form-wrapper .comment-form textarea,

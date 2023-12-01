@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+
+<div layout:fragment="css">
+    <style>
+        .hero-section .contact-form-wrapper{
+            margin-bottom: 100px;
+        }
+    </style>
+
+</div>
+
+    <div layout:fragment="content">
+        <div class="hero-section">
+            <div class="contact-form-wrapper">
+                <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                        <div class="section-title text-center mb-50">
+                            <img th:src="@{/assets/img/logo/campingmoa_logo.png}" alt="logo" width="30%">
+                        </div>
+                    </div>
+                </div>
+                <form action="assets/php/mail.php" class="contact-form">
+                    <div class="row">
+
+                            <input type="text" name="name" id="name" placeholder="이메일" required>
+
+                    </div>
+                    <div class="row">
+
+                            <input type="text" name="password" id="phone" placeholder="비밀번호" required>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="button text-center">
+                                <button href="javascript:void(0)" class="theme-btn border-btn">이메일로 로그인하기</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                        <div class="section-title text-center mb-50">
+                            <p class="wow fadeInUp" data-wow-delay=".6s">또는</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="button text-center">
+                            <button type="submit" class="theme-btn">카카오로 바로 시작</button>
+                        </div>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-xl-10 col-lg-8 mx-auto">
+                        <div class="section-title text-center mb-50">
+                            <p class="wow fadeInUp" data-wow-delay=".6s">아직 회원이 아니신가요? <a href="javascript:void(0)">가입하기</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ========================= scroll-top ========================= -->
+        <a href="#" class="scroll-top">
+            <i class="lni lni-arrow-up"></i>
+        </a>
+
+    </div>
+    <div layout:fragment="script">
+        <script>
+            console.log("안녕하세요~!");
+
+        </script>
+    </div>
+
+</html>
